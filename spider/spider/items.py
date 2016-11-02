@@ -15,6 +15,6 @@ class SpiderItem(scrapy.Item):
 
 
 class RosterItem(scrapy.Item):
-    thumb = scrapy.Field()
+    detail = scrapy.Field()
     name = scrapy.Field()
     alias = scrapy.Field()
