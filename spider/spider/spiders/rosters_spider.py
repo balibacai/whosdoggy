@@ -23,22 +23,19 @@ class RostersSpider(scrapy.Spider):
             item = RosterItem()
             item['detail'] = baike_url
             item['name'] = name
-            # yield item
 
-            yield scrapy.Request(baike_url, callback=self.parse_baike_alias)
+            yield scrapy.Request(baike_url, meta={'item': item}, callback=self.parse_baike_alias)
 
     def parse_baike_alias(self, response):
         categories = response.css('div.basic-info').css('dl > dt')
-        name = response.css('h1::text').extract_first()
-        item = RosterItem()
-        item['detail'] = response.url
-        item['name'] = name
-        item['alias'] = []
+        title = response.css('h1::text').extract_first()
+        item = response.meta['item']
+        item['alias'] = [title]
 
         for category in categories:
             if len(category.css('::text').re(ur'别\s+称')) == 1:
                 alias_desc = category.xpath('string(following-sibling::dd[1])').extract_first().strip('\n')
                 alias_list = re.split(u'、|，|/|,', alias_desc)
-                item['alias'] = alias_list
+                item['alias'] += alias_list
 
         yield item
