@@ -1,2 +1,4 @@
-.idea
+.idea/
 *.json
+.DS_Store
+

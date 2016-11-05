@@ -18,3 +18,11 @@ class RosterItem(scrapy.Item):
     detail = scrapy.Field()
     name = scrapy.Field()
     alias = scrapy.Field()
+
+
+class ImageItem(scrapy.Item):
+    image_urls = scrapy.Field()
+    images = scrapy.Field()
+    image_paths = scrapy.Field()
+    dog_name = scrapy.Field()
+    image_base = scrapy.Field()
